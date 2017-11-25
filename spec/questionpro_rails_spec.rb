@@ -1,6 +1,15 @@
 RSpec.describe QuestionproRails do
-  it "has a version number" do
-    expect(QuestionproRails::VERSION).not_to be nil
-  end
 
+  describe "Default Attributes" do
+
+    it "Has a version number" do
+      expect(QuestionproRails::VERSION).not_to be nil
+    end
+
+    it "Has an Api key" do
+      expect(QuestionproRails.api_key).not_to be nil
+    end  
+    
+  end
+  
 end

@@ -14,7 +14,7 @@ RSpec.configure do |config|
 
   config.before(:all) do
     QuestionproRails.configure do |config|
-      config.access_key = ENV['QUESTIONPRO_API_KEY']
+      config.api_key = "0f00a8a8-fa4e-4d1d-ac47-bdde52a95944"
     end
   end  
 end

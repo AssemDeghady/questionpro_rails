@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["assem.deghady@gmail.com"]
 
   spec.summary       = %q{An Api Wrapper for QuestionPro's Surveys Services.}
-  spec.description   = %q{An Api Wrapper for QuestionPro's Surveys Services.}
+  # spec.description   = %q{An Api Wrapper for QuestionPro's Surveys Services.}
   spec.homepage      = "https://github.com/AssemDeghady/questionpro_rails"
   spec.license       = "MIT"
 
