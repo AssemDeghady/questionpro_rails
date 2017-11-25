@@ -26,6 +26,26 @@ module QuestionproRails
        endDate: self.end_date, startingResponseCounter: self.starting_response_counter}.compact.to_json
     end
 
+    def list_surveys
+      url = ApiRequest.base_path("questionpro.survey.getAllSurveys")
+      result = self.class.get(url, body: self.options)
+      
+      self.status = result['status']
+      surveys = result['response']
+
+      return surveys
+    end
+
+    def get_survey
+      url = ApiRequest.base_path("questionpro.survey.getSurvey")
+      result = self.class.get(url, body: self.options)
+      
+      self.status = result['status']
+      survey = result['response']
+
+      return survey
+    end
+
     def get_survey_response_count
       url = ApiRequest.base_path("questionpro.survey.responseCount")
       result = self.class.get(url, body: self.options)
