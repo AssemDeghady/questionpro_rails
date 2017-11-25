@@ -4,6 +4,7 @@ require "questionpro_rails/version"
 require "questionpro_rails/api_request"
 
 module QuestionproRails
+
   class << self
     attr_accessor :configuration
 
@@ -23,15 +24,5 @@ module QuestionproRails
       configuration.api_key
     end
   end
-
-  # def self.surveys(options = {})
-  #   url = "#{ QuestionproRails.base_path('questionpro.survey.getAllSurveys') }"
-  #   response = get(url)
-  #   if response.success?
-  #     new(response)
-  #   else
-  #     raise response.response
-  #   end        
-  # end  
 
 end

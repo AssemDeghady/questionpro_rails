@@ -31,7 +31,12 @@ module QuestionproRails
       result = self.class.get(url, body: self.options)
       
       self.status = result['status']
-      surveys = result['response']
+      result = result['response']['surveys']
+      
+      surveys = []
+      result.each do |survey|        
+        surveys.push(Survey.new(survey))
+      end     
 
       return surveys
     end
@@ -41,7 +46,7 @@ module QuestionproRails
       result = self.class.get(url, body: self.options)
       
       self.status = result['status']
-      survey = result['response']
+      survey = Survey.new(result['response'])     
 
       return survey
     end
