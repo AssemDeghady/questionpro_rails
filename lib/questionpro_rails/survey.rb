@@ -2,7 +2,7 @@ module QuestionproRails
   class Survey
 
     attr_reader :id, :name, :subtitle, :url, :thank_you_message, 
-                :has_scoring_logic, :numeric_title, :status
+                :has_scoring_logic, :numeric_title, :status, :sections
 
     def initialize (attributes)
       @id = (attributes['id'] || attributes['surveyID']) 
