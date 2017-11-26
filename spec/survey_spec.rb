@@ -3,7 +3,7 @@ RSpec.describe QuestionproRails::Survey do
   describe "Survey Methods" do
     
     it "Can get survey sections" do
-      api_request = QuestionproRails::ApiRequest.new(5898743)
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
       survey = api_request.get_survey
       sections = survey.sections
 

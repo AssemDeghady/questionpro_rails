@@ -17,24 +17,24 @@ RSpec.describe QuestionproRails::ApiRequest do
   describe "Api Calls" do
 
     it "Can get survey data" do
-      api_request = QuestionproRails::ApiRequest.new(5898743)
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
       survey = api_request.get_survey
 
-      expect(survey.id).to eq(5898743)
+      expect(survey.id).to eq(@test_survey_id)
     end
 
     it "Can get list of all surveys" do
-      api_request = QuestionproRails::ApiRequest.new(5898743)      
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)      
       surveys = api_request.list_surveys
 
       expect(api_request.status["id"]).to eq(200)      
     end
 
     it "Can get survey response count" do
-      api_request = QuestionproRails::ApiRequest.new(5898743)
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
       survey_response_count = api_request.get_survey_response_count
 
-      expect(survey_response_count.id).to eq(5898743)
+      expect(survey_response_count.id).to eq(@test_survey_id)
     end
 
   end

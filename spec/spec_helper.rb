@@ -12,7 +12,10 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
+  # Change these to a working account with existing survey
   config.before(:all) do
+    @test_survey_id = 5898743
+
     QuestionproRails.configure do |config|
       config.api_key = "0f00a8a8-fa4e-4d1d-ac47-bdde52a95944"
     end
