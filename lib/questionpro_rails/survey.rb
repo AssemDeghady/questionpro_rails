@@ -13,6 +13,7 @@ module QuestionproRails
       @has_scoring_logic = attributes['hasScoringLogic']
       @numeric_title = attributes['numericTitle']
       @status = attributes['status']
+      @sections = attributes['sections']
     end
 
   end

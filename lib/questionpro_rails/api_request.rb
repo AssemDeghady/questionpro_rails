@@ -47,7 +47,6 @@ module QuestionproRails
       
       self.status = result['status']
       survey = Survey.new(result['response'])     
-      survey.sections = result['status']['sections']
 
       return survey
     end
