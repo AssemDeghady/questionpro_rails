@@ -37,6 +37,13 @@ RSpec.describe QuestionproRails::ApiRequest do
       expect(survey_response_count.id).to eq(@test_survey_id)
     end
 
+    it "Can get survey responses" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
+      survey_responses = api_request.get_survey_responses
+
+      expect(api_request.status["id"]).to eq(200)      
+    end    
+
   end
 
 end

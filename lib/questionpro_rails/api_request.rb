@@ -1,4 +1,5 @@
 require "questionpro_rails/survey"
+require "questionpro_rails/survey_response"
 require "questionpro_rails/survey_response_count"
 
 module QuestionproRails
@@ -7,7 +8,7 @@ module QuestionproRails
     format :json
     base_uri 'www.questionpro.com'
 
-    attr_accessor :id, :result_mode, :start_date, :end_date, :starting_response_counter, :status
+    attr_accessor :id, :result_mode, :start_date, :end_date, :starting_response_counter, :status, :full_response
 
     def initialize(id, result_mode = 0, start_date = nil, end_date = nil, starting_response_counter = nil)
       @id = id
@@ -30,11 +31,12 @@ module QuestionproRails
       url = ApiRequest.base_path("questionpro.survey.getAllSurveys")
       result = self.class.get(url, body: self.options)
       
-      self.status = result['status']
-      result = result['response']['surveys']
+      self.full_response = result
+      self.status = result['status']      
       
       surveys = []
-      result.each do |survey|        
+      result_surveys = result['response']['surveys']
+      result_surveys.each do |survey|
         surveys.push(Survey.new(survey))
       end     
 
@@ -45,8 +47,10 @@ module QuestionproRails
       url = ApiRequest.base_path("questionpro.survey.getSurvey")
       result = self.class.get(url, body: self.options)
       
+      self.full_response = result
       self.status = result['status']
-      survey = Survey.new(result['response'])     
+
+      survey = Survey.new(result['response'])
 
       return survey
     end
@@ -55,10 +59,28 @@ module QuestionproRails
       url = ApiRequest.base_path("questionpro.survey.responseCount")
       result = self.class.get(url, body: self.options)
       
+      self.full_response = result
       self.status = result['status']
+
       response_count = SurveyResponseCount.new(result['response'])
 
       return response_count
+    end
+
+    def get_survey_responses
+      url = ApiRequest.base_path("questionpro.survey.surveyResponses")
+      result = self.class.get(url, body: self.options)   
+
+      self.full_response = result
+      self.status = result['status']         
+      
+      survey_responses = []
+      result_responses = result['response']['responses']
+      result_responses.each do |response|
+        survey_responses.push(SurveyResponse.new(response))
+      end           
+      
+      return survey_responses
     end
   end
 end
