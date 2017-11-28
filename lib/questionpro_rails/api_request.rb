@@ -1,4 +1,7 @@
 require "questionpro_rails/survey"
+require "questionpro_rails/account"
+require "questionpro_rails/email_list"
+require "questionpro_rails/email_template"
 require "questionpro_rails/survey_response"
 require "questionpro_rails/survey_response_count"
 
@@ -8,16 +11,19 @@ module QuestionproRails
     format :json
     base_uri 'www.questionpro.com'
 
-    attr_accessor :id, :response_id,:result_mode, :start_date, :end_date, :starting_response_counter, 
-                  :status, :full_response, :success
+    attr_accessor :survey_id, :response_id, :result_mode, :start_date, :end_date, :starting_response_counter, 
+                  :email_group_id, :template_id, :user_id,:status, :full_response, :success
 
-    def initialize(id, response_id = nil, result_mode = 0, start_date = nil, end_date = nil, starting_response_counter = nil)
-      @id = id
+    def initialize(survey_id = nil, response_id = nil, result_mode = 0, start_date = nil, end_date = nil, starting_response_counter = nil, email_group_id = nil, template_id = nil, user_id = nil)
+      @survey_id = survey_id
       @response_id = response_id
       @result_mode = result_mode
       @start_date = start_date
       @end_date = end_date
-      @starting_response_counter = starting_response_counter      
+      @starting_response_counter = starting_response_counter   
+      @email_group_id = email_group_id   
+      @template_id = template_id
+      @user_id = user_id
     end
 
     def self.base_path(method_url)
@@ -25,8 +31,9 @@ module QuestionproRails
     end
 
     def options
-      {id: self.id, surveyID: self.id, responseID: self.response_id, resultMode: self.result_mode, startDate: self.start_date, 
-       endDate: self.end_date, startingResponseCounter: self.starting_response_counter}.compact.to_json
+      {id: self.survey_id, surveyID: self.survey_id, responseID: self.response_id, resultMode: self.result_mode, startDate: self.start_date, 
+       endDate: self.end_date, startingResponseCounter: self.starting_response_counter,
+       emailGroupID: self.email_group_id, templateID: self.template_id, userID: self.user_id}.compact.to_json
     end
 
     def list_surveys
@@ -118,5 +125,111 @@ module QuestionproRails
 
       return self       
     end 
+
+    def get_email_lists
+      url = ApiRequest.base_path("questionpro.survey.getEmailLists")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      email_lists = []
+      result_email_lists = result['response']['emailLists']
+      result_email_lists.each do |email_list|
+        email_lists.push(EmailList.new(email_list))
+      end
+      
+      return email_lists
+    end
+
+    def get_email_list
+      url = ApiRequest.base_path("questionpro.survey.getEmailList")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      email_list = EmailList.new(result['response']['emailList'])
+      
+      return email_list
+    end 
+
+    def delete_email_list
+      url = ApiRequest.base_path("questionpro.survey.deleteEmailList")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      self.success = result['response']['success']
+
+      return self
+    end
+
+    def get_email_templates
+      url = ApiRequest.base_path("questionpro.survey.getEmailTemplates")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      email_templates = []
+      result_email_templates = result['response']['emailTemplates']
+      result_email_templates.each do |email_template|
+        email_templates.push(EmailTemplate.new(email_template))
+      end
+      
+      return email_templates
+    end
+
+    def get_email_template
+      url = ApiRequest.base_path("questionpro.survey.getEmailTemplate")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      email_template = EmailTemplate.new(result['response']['emailTemplate'])
+      
+      return email_template
+    end 
+
+    def get_email_template
+      url = ApiRequest.base_path("questionpro.survey.deleteEmailTemplate")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      self.success = result['response']['success']
+
+      return self
+    end
+
+    def get_all_accounts
+      url = ApiRequest.base_path("questionpro.survey.getAllAccounts")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      accounts = []
+      result_accounts = result['response']['accounts']
+      result_accounts.each do |account|
+        accounts.push(Account.new(account))
+      end
+      
+      return accounts
+    end
+
+    def get_account
+      url = ApiRequest.base_path("questionpro.survey.getAccount")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      account = Account.new(result['response']['account'])
+      
+      return account
+    end    
   end
 end

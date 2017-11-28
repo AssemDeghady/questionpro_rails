@@ -17,7 +17,7 @@ RSpec.describe QuestionproRails::ApiRequest do
   describe "Api Calls" do
 
     it "Can get list of all surveys" do
-      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)      
+      api_request = QuestionproRails::ApiRequest.new()      
       surveys = api_request.list_surveys
 
       expect(api_request.status["id"]).to eq(200)      
@@ -63,7 +63,73 @@ RSpec.describe QuestionproRails::ApiRequest do
     #   request = api_request.delete_response
 
     #   expect(request.success).to eq(1)
-    # end         
+    # end  
+
+    it "Can get email lists" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
+      email_lists = api_request.get_email_lists
+
+      expect(api_request.status["id"]).to eq(200)      
+    end   
+
+    it "Can get specific email list" do
+      api_request = QuestionproRails::ApiRequest.new()
+      api_request.email_group_id = @test_email_group_id
+
+      email_list = api_request.get_email_list
+
+      expect(email_list.id).to eq(@test_email_group_id)
+    end       
+
+    # it "Can delete specific email list" do
+    #   api_request = QuestionproRails::ApiRequest.new()
+    #   api_request.email_group_id = @test_email_group_id
+
+    #   request = api_request.delete_email_list
+
+    #   expect(request.success).to eq(1)
+    # end  
+
+    it "Can get email templates" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
+      email_templates = api_request.get_email_templates
+
+      expect(api_request.status["id"]).to eq(200)      
+    end   
+
+    it "Can get specific email template" do
+      api_request = QuestionproRails::ApiRequest.new()
+      api_request.email_group_id = @test_email_template_id
+
+      email_template = api_request.get_email_template
+
+      expect(email_template.id).to eq(@test_email_template_id)
+    end       
+
+    # it "Can delete specific email template" do
+    #   api_request = QuestionproRails::ApiRequest.new()
+    #   api_request.email_group_id = @test_email_template_id
+
+    #   request = api_request.delete_email_template
+
+    #   expect(request.success).to eq(1)
+    # end
+
+    it "Can get all accounts" do
+      api_request = QuestionproRails::ApiRequest.new()
+      accounts = api_request.get_all_accounts
+
+      expect(api_request.status["id"]).to eq(200)      
+    end   
+
+    it "Can get specific account" do
+      api_request = QuestionproRails::ApiRequest.new()
+      api_request.user_id = @test_user_id
+
+      account = api_request.get_account
+
+      expect(account.id).to eq(@test_user_id)
+    end                            
 
   end
 
