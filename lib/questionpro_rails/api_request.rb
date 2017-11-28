@@ -4,6 +4,7 @@ require "questionpro_rails/email_list"
 require "questionpro_rails/email_template"
 require "questionpro_rails/survey_response"
 require "questionpro_rails/survey_response_count"
+require "questionpro_rails/unsubscribed_email"
 
 module QuestionproRails
   class ApiRequest
@@ -31,9 +32,10 @@ module QuestionproRails
     end
 
     def options
-      {id: self.survey_id, surveyID: self.survey_id, responseID: self.response_id, resultMode: self.result_mode, startDate: self.start_date, 
-       endDate: self.end_date, startingResponseCounter: self.starting_response_counter,
-       emailGroupID: self.email_group_id, templateID: self.template_id, userID: self.user_id}.compact.to_json
+      {id: self.survey_id, surveyID: self.survey_id, responseID: self.response_id, 
+       resultMode: self.result_mode, startDate: self.start_date, userID: self.user_id, 
+       endDate: self.end_date, startingResponseCounter: self.starting_response_counter, 
+       emailGroupID: self.email_group_id, templateID: self.template_id}.compact.to_json
     end
 
     def list_surveys
@@ -41,7 +43,7 @@ module QuestionproRails
       result = self.class.get(url, body: self.options)
       
       self.full_response = result
-      self.status = result['status']      
+      self.status = result['status']
       
       surveys = []
       result_surveys = result['response']['surveys']
@@ -193,7 +195,7 @@ module QuestionproRails
       return email_template
     end 
 
-    def get_email_template
+    def delete_email_template
       url = ApiRequest.base_path("questionpro.survey.deleteEmailTemplate")
       result = self.class.get(url, body: self.options)
 
@@ -230,6 +232,22 @@ module QuestionproRails
       account = Account.new(result['response']['account'])
       
       return account
-    end    
+    end   
+
+    def get_unsubscribers
+      url = ApiRequest.base_path("questionpro.survey.getUnsubscribedEmailAddresses")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      unsubscribers = []
+      result_unsubscribers = result['response']['response']
+      result_unsubscribers.each do |unsubscriber|
+        unsubscribers.push(UnsubscribedEmail.new(unsubscriber))
+      end
+      
+      return unsubscribers
+    end     
   end
 end

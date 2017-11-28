@@ -99,7 +99,7 @@ RSpec.describe QuestionproRails::ApiRequest do
 
     it "Can get specific email template" do
       api_request = QuestionproRails::ApiRequest.new()
-      api_request.email_group_id = @test_email_template_id
+      api_request.template_id = @test_email_template_id
 
       email_template = api_request.get_email_template
 
@@ -108,7 +108,7 @@ RSpec.describe QuestionproRails::ApiRequest do
 
     # it "Can delete specific email template" do
     #   api_request = QuestionproRails::ApiRequest.new()
-    #   api_request.email_group_id = @test_email_template_id
+    #   api_request.template_id = @test_email_template_id
 
     #   request = api_request.delete_email_template
 
@@ -129,7 +129,14 @@ RSpec.describe QuestionproRails::ApiRequest do
       account = api_request.get_account
 
       expect(account.id).to eq(@test_user_id)
-    end                            
+    end 
+
+    it "Can get all unsubscribers" do
+      api_request = QuestionproRails::ApiRequest.new()
+      unsubscribers = api_request.get_unsubscribers
+
+      expect(api_request.status["id"]).to eq(200)      
+    end                                  
 
   end
 
