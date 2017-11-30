@@ -1,11 +1,10 @@
 module QuestionproRails
   class EmailListStatistic
 
-    attr_reader :statistics, :unsubscribed, :total, :active, 
+    attr_reader :unsubscribed, :total, :active, 
                 :pendin_verification, :bounced
 
     def initialize (attributes)
-      @statistics = attributes['statistics']
       @unsubscribed = attributes['unsubscribed']
       @total = attributes['total']
       @active = attributes['active']

@@ -3,14 +3,14 @@ require "questionpro_rails/email_list_statistic"
 module QuestionproRails
   class EmailList
 
-    attr_reader :survey_id, :name, :email_group_id, :email, :qp_statistics, 
+    attr_reader :survey_id, :name, :email_group_id, :qp_emails, :qp_statistics, 
                 :unsubscribed, :total, :active, :pendin_verification, :bounced
 
-    def initialize (attributes)
+    def initialize (attributes)      
       @survey_id = attributes['surveyID']
-      @name = attributes['name']
       @email_group_id = attributes['emailGroupID']
-      @email = attributes['email']
+      @name = attributes['name']      
+      @qp_emails = attributes['email']
       @qp_statistics = attributes['statistics']
       @unsubscribed = attributes['unsubscribed']
       @total = attributes['total']
@@ -23,17 +23,15 @@ module QuestionproRails
       extracted_statistics = []
 
       if self.qp_statistics.any?
-        self.qp_statistics.each do |statistic|   
-          extracted_statistics.push(EmailListStatistic.new(statistic))
-        end
+        extracted_statistics.push(EmailListStatistic.new(qp_statistics))
       end
 
       return extracted_statistics
     end
 
     def emails
-      unless self.email.blank?
-        return self.email.split(',')
+      unless self.qp_emails.empty?
+        return self.qp_emails.split(',')
       end
     end
             

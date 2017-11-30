@@ -30,12 +30,12 @@ RSpec.describe QuestionproRails::ApiRequest do
       expect(survey.id).to eq(@test_survey_id)
     end
 
-    # it "Can delete specific survey" do
-    #   api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
-    #   request = api_request.delete_survey
+    it "Can delete specific survey" do
+      api_request = QuestionproRails::ApiRequest.new(@test_delete_survey_id)
+      request = api_request.delete_survey
 
-    #   expect(request.success).to eq(1)
-    # end             
+      expect(request.success).to eq(1)
+    end             
 
     it "Can get survey responses" do
       api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
@@ -58,12 +58,12 @@ RSpec.describe QuestionproRails::ApiRequest do
       expect(survey_response_count.id).to eq(@test_survey_id)
     end 
 
-    # it "Can delete specific survey response" do
-    #   api_request = QuestionproRails::ApiRequest.new(@test_survey_id, @test_response_id)
-    #   request = api_request.delete_response
+    it "Can delete specific survey response" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id, @test_delete_response_id)
+      request = api_request.delete_response
 
-    #   expect(request.success).to eq(1)
-    # end  
+      expect(request.success).to eq(1)
+    end  
 
     it "Can get email lists" do
       api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
@@ -78,17 +78,17 @@ RSpec.describe QuestionproRails::ApiRequest do
 
       email_list = api_request.get_email_list
 
-      expect(email_list.id).to eq(@test_email_group_id)
+      expect(email_list.email_group_id).to eq(@test_email_group_id)
     end       
 
-    # it "Can delete specific email list" do
-    #   api_request = QuestionproRails::ApiRequest.new()
-    #   api_request.email_group_id = @test_email_group_id
+    it "Can delete specific email list" do
+      api_request = QuestionproRails::ApiRequest.new()
+      api_request.email_group_id = @test_delete_email_group_id
 
-    #   request = api_request.delete_email_list
+      request = api_request.delete_email_list
 
-    #   expect(request.success).to eq(1)
-    # end  
+      expect(request.success).to eq(1)
+    end  
 
     it "Can get email templates" do
       api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
@@ -106,14 +106,14 @@ RSpec.describe QuestionproRails::ApiRequest do
       expect(email_template.id).to eq(@test_email_template_id)
     end       
 
-    # it "Can delete specific email template" do
-    #   api_request = QuestionproRails::ApiRequest.new()
-    #   api_request.template_id = @test_email_template_id
+    it "Can delete specific email template" do
+      api_request = QuestionproRails::ApiRequest.new()
+      api_request.template_id = @test_delete_email_template_id
 
-    #   request = api_request.delete_email_template
+      request = api_request.delete_email_template
 
-    #   expect(request.success).to eq(1)
-    # end
+      expect(request.success).to eq(1)
+    end
 
     it "Can get all accounts" do
       api_request = QuestionproRails::ApiRequest.new()
@@ -138,6 +138,43 @@ RSpec.describe QuestionproRails::ApiRequest do
       expect(api_request.status["id"]).to eq(200)      
     end                                  
 
-  end
+    it "Can get survey meta" do
+      api_request = QuestionproRails::ApiRequest.new(@test_user_id)
+      survey_meta = api_request.get_survey_meta
 
+      expect(api_request.status["id"]).to eq(200)         
+    end
+
+    it "Can get send survey" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
+      api_request.email_group_id = @test_email_group_id
+      api_request.template_id = @test_email_template_id
+      api_request.send_survey
+
+      expect(api_request.status["id"]).to eq(200)
+    end 
+
+    it "Can get send history" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
+      email_batches = api_request.get_send_history
+
+      expect(api_request.status["id"]).to eq(200)
+    end       
+
+    it "Can get send reminders" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
+      api_request.email_group_id = @test_email_group_id
+      api_request.template_id = @test_email_template_id
+      api_request.send_reminders
+
+      expect(api_request.status["id"]).to eq(200)
+    end 
+
+    it "Can create email list" do
+      api_request = QuestionproRails::ApiRequest.new(@test_survey_id)
+      api_request.create_email_list(["assem.deghady@gmail.com"])
+
+      expect(api_request.email_group_id).to_not be_nil
+    end     
+  end
 end

@@ -15,10 +15,14 @@ RSpec.configure do |config|
   # Change these to a working account with existing survey
   config.before(:all) do
     @test_survey_id = 5909061
-    @test_user_id = 3128996
+    @test_user_id = 3133683
     @test_response_id = 15819197
-    @test_email_group_id = 1300
-    @test_email_template_id = 123
+    @test_email_group_id = 1130746
+    @test_email_template_id = 409720
+    @test_delete_email_template_id = 123
+    @test_delete_email_group_id = 123
+    @test_delete_response_id = 123
+    @test_delete_survey_id = 123
 
     QuestionproRails.configure do |config|
       config.api_key = "d810b30a-2122-4f05-ac5f-5d1a7c2f58f2"

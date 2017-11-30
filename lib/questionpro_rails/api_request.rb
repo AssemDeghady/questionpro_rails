@@ -2,6 +2,8 @@ require "questionpro_rails/survey"
 require "questionpro_rails/account"
 require "questionpro_rails/email_list"
 require "questionpro_rails/email_template"
+require "questionpro_rails/email_batch"
+require "questionpro_rails/survey_meta"
 require "questionpro_rails/survey_response"
 require "questionpro_rails/survey_response_count"
 require "questionpro_rails/unsubscribed_email"
@@ -12,8 +14,9 @@ module QuestionproRails
     format :json
     base_uri 'www.questionpro.com'
 
-    attr_accessor :survey_id, :response_id, :result_mode, :start_date, :end_date, :starting_response_counter, 
-                  :email_group_id, :template_id, :user_id,:status, :full_response, :success
+    attr_accessor :survey_id, :response_id, :result_mode, :start_date, :end_date, 
+                  :success, :message, :user_id, :status, :full_response, 
+                  :starting_response_counter,  :email_group_id, :template_id
 
     def initialize(survey_id = nil, response_id = nil, result_mode = 0, start_date = nil, end_date = nil, starting_response_counter = nil, email_group_id = nil, template_id = nil, user_id = nil)
       @survey_id = survey_id
@@ -248,6 +251,67 @@ module QuestionproRails
       end
       
       return unsubscribers
-    end     
+    end
+
+    def get_survey_meta
+      url = ApiRequest.base_path("questionpro.survey.sendSurveyMetaData")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      
+      survey_meta = SurveyMeta.new(result['response'])
+      
+      return survey_meta          
+    end
+
+    def send_survey(mode = 1, emails = nil, template = nil)
+      url = ApiRequest.base_path("questionpro.survey.sendSurvey")
+      result = self.class.get(url, body: {surveyID: self.survey_id, mode: mode, 
+                                          emailGroupID: self.email_group_id, emails: emails, 
+                                          templateID: self.template_id, template: template}.compact.to_json)
+
+      self.full_response = result
+      self.status = result['status']
+      self.message = result['response']['result']
+    end
+
+    def get_send_history
+      url = ApiRequest.base_path("questionpro.survey.emailBatchStatistics")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+
+      email_batches = []
+      result_email_batches = result['response']['emailBatches']
+      result_email_batches.each do |email_batch|
+        email_batches.push(EmailBatch.new(email_batch))
+      end
+      
+      return email_batches      
+    end
+
+    def send_reminders
+      url = ApiRequest.base_path("questionpro.survey.sendReminder")
+      result = self.class.get(url, body: self.options)
+
+      self.full_response = result
+      self.status = result['status']
+      self.message = result['response']['result']
+    end  
+
+    def create_email_list (emails = [], email_group_name = nil)
+      url = ApiRequest.base_path("questionpro.survey.createEmailGroup")
+      result = self.class.get(url, body: {id: self.survey_id, emails: emails, 
+                                          emailGroupName: email_group_name}.compact.to_json)
+
+      self.full_response = result
+      self.status = result['status']
+
+      unless result['response']['result']['emailGroupID'].nil?
+        self.email_group_id = result['response']['result']['emailGroupID']
+      end
+    end 
   end
 end
