@@ -5,11 +5,11 @@ module QuestionproRails
                 :pendin_verification, :bounced
 
     def initialize (attributes)
-      @unsubscribed = attributes['unsubscribed']
-      @total = attributes['total']
-      @active = attributes['active']
+      @unsubscribed        = attributes['unsubscribed']
+      @total               = attributes['total']
+      @active              = attributes['active']
       @pendin_verification = attributes['pendinVerification']
-      @bounced = attributes['bounced']
+      @bounced             = attributes['bounced']
     end                
             
   end

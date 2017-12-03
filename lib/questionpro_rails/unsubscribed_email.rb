@@ -4,8 +4,8 @@ module QuestionproRails
     attr_reader :id, :email, :unsubscribed_time
 
     def initialize (attributes)
-      @id = attributes['id']
-      @email = attributes['emailAddress']
+      @id                = attributes['id']
+      @email             = attributes['emailAddress']
       @unsubscribed_time = attributes['unsubscribedTime']
     end
   end

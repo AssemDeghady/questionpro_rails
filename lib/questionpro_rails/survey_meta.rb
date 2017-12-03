@@ -4,13 +4,21 @@ require "questionpro_rails/template"
 module QuestionproRails
   class SurveyMeta
 
-    attr_reader :email_groups_list, :templates_list
+    # @return [Array<Hash>] Email Groups List collected from the survey meta.
+    attr_reader :email_groups_list
+
+    # @return [Array<Hash>] Templates List collected from the survey meta.
+    attr_reader :templates_list
     
     def initialize (attributes)
       @email_groups_list = attributes['emailGroups']
-      @templates_list = attributes['templates']
+      @templates_list    = attributes['templates']
     end
 
+    # Extract the Email Groups from the hashes stored
+    # inside email_groups_list attribute.
+    #
+    # @return [Array<QuestionproRails::EmailGroup>] Email Groups.
     def email_groups
       extracted_groups = []
 
@@ -23,6 +31,10 @@ module QuestionproRails
       return extracted_groups
     end
 
+    # Extract the Templates from the hashes stored
+    # inside templates_list attribute.
+    #
+    # @return [Array<QuestionproRails::Template>] Templates.
     def templates
       extracted_templates = []
 

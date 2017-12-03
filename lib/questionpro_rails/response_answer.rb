@@ -4,9 +4,9 @@ module QuestionproRails
     attr_reader :id, :answer_text, :value    
 
     def initialize (attributes)
-      @id = attributes['id']
+      @id          = attributes['id']
       @answer_text = attributes['answerText']      
-      @value = attributes['value']      
+      @value       = attributes['value']      
     end
 
   end

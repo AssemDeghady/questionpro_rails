@@ -1,14 +1,14 @@
 module QuestionproRails
   class Choice
 
-    attr_reader :score, :is_default, :exclude_randomize, :id, :text
+    attr_reader :id, :text, :score, :is_default, :exclude_randomize
 
     def initialize (attributes)
-      @id = attributes['id']
-      @score = attributes['score']
-      @is_default = attributes['isDefault']
+      @id                = attributes['id']
+      @score             = attributes['score']
+      @is_default        = attributes['isDefault']
       @exclude_randomize = attributes['excludeRandomize']      
-      @text = attributes['text']      
+      @text              = attributes['text']      
     end
 
   end

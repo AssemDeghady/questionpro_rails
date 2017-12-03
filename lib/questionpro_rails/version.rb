@@ -1,3 +1,4 @@
 module QuestionproRails
-  VERSION = "0.1.0"
+  # Gem Version
+  VERSION = "0.1.1"
 end

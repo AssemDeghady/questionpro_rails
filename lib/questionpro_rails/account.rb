@@ -5,13 +5,13 @@ module QuestionproRails
                 :account_type, :creation_date, :phone
 
       def initialize (attributes)
-        @id = attributes['userID']
-        @first_name = attributes['firstName']
-        @last_name = attributes['lastName']
-        @last_login = attributes['lastLogin']
+        @id            = attributes['userID']
+        @first_name    = attributes['firstName']
+        @last_name     = attributes['lastName']
+        @last_login    = attributes['lastLogin']
         @email_address = attributes['emailAddress']
-        @phone = attributes['phone']
-        @account_type = attributes['accountType']
+        @phone         = attributes['phone']
+        @account_type  = attributes['accountType']
         @creation_date = attributes['creationDate']        
       end
   end
