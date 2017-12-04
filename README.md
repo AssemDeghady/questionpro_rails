@@ -133,6 +133,40 @@ api_request.send_reminders
 api_request.create_email_list(["test@test.com", "test2@test.com"], "test group name")
 ```
 
+And most likely more data needs to be extracted after making the call.
+
+```ruby
+# Extract the Sections from the survey
+sections = survey.sections
+
+# Extract the Questions from the section
+questions = section.questions
+
+# Extract the Choices from the question
+choices = question.choices
+
+# Extract emails from the email list
+emails = email_list.emails
+
+# Extract emails from the email list
+emails = email_list.emails
+
+# Extract email list statistics from email list
+email_list_statistics = email_list.statistics
+
+# Extract email groups statistics from survey meta
+email_groups = survey_meta.email_groups
+
+# Extract templates statistics from survey meta
+templates = survey_meta.templates
+
+# Extract response sets from survey response
+response_sets = survey_response.response_set
+
+# Extract answers from response set
+answers = response_set.answers
+```
+
 ## Dependencies
 
 | Tool          																					| Description           																						|
