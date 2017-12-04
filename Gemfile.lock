@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    questionpro_rails (0.1.0)
-      httparty
+    questionpro_rails (0.1.1)
+      httparty (~> 0.15.6)
 
 GEM
   remote: https://rubygems.org/
