@@ -110,7 +110,7 @@ module QuestionproRails
       return self
     end    
 
-    # Get a specific survey Responses.
+    # Get list of survey Responses.
     # Survey ID must be set inside the api request object.
     #
     # @return [Array<QuestionproRails::SurveyResponse>] Survey Responses.
@@ -335,7 +335,6 @@ module QuestionproRails
       return unsubscribers
     end
 
-    # Get a specific survey meta.
     # Survey ID must be set inside the api request object.
     #
     # @return [QuestionproRails::SurveyMeta] Survey meta.
