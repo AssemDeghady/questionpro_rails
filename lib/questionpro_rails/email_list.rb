@@ -31,7 +31,7 @@ module QuestionproRails
     def statistics
       extracted_statistics = []
 
-      if self.qp_statistics.any?
+      unless self.qp_statistics.nil?
         extracted_statistics.push(EmailListStatistic.new(qp_statistics))
       end
 
@@ -42,7 +42,7 @@ module QuestionproRails
     #
     # @return [Array<String>] Emails.
     def emails
-      unless self.qp_emails.empty?
+      unless self.qp_emails.nil?
         return self.qp_emails.split(',')
       end
     end

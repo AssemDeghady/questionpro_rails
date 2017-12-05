@@ -22,7 +22,7 @@ module QuestionproRails
     def choices
       extracted_choices = []
 
-      if self.qp_answers.any?
+      unless self.qp_answers.nil?
         self.qp_answers.each do |choice|   
           extracted_choices.push(Choice.new(choice))
         end           

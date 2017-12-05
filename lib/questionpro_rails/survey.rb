@@ -28,7 +28,7 @@ module QuestionproRails
     def sections
       extracted_sections = []
 
-      if self.qp_sections.any?
+      unless self.qp_sections.nil?
         self.qp_sections.each do |section|   
           extracted_sections.push(Section.new(section))
         end           

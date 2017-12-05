@@ -23,7 +23,7 @@ module QuestionproRails
     def answers
       extracted_answers = []
 
-      if self.qp_values.any?
+      unless self.qp_values.nil?
         self.qp_values.each do |answer|   
           extracted_answers.push(ResponseAnswer.new(answer))
         end           

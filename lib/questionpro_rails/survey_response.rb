@@ -30,7 +30,7 @@ module QuestionproRails
     def response_set
       extracted_sets = []
 
-      if self.qp_response_set.any?
+      unless self.qp_response_set.nil?
         self.qp_response_set.each do |set|   
           extracted_sets.push(ResponseSet.new(set))
         end           

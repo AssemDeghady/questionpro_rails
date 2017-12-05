@@ -39,7 +39,7 @@ module QuestionproRails
 		def questions
       extracted_questions = []
 
-      if self.qp_questions.any?
+      unless self.qp_questions.nil?
         self.qp_questions.each do |question|   
           extracted_questions.push(Question.new(question))
         end           

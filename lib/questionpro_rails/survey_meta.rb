@@ -22,7 +22,7 @@ module QuestionproRails
     def email_groups
       extracted_groups = []
 
-      unless self.email_groups_list.empty? 
+      unless self.email_groups_list.nil? 
         self.email_groups_list.each do |email_group|
           extracted_groups.push(EmailGroup.new(email_group))
         end
@@ -38,7 +38,7 @@ module QuestionproRails
     def templates
       extracted_templates = []
 
-      unless self.templates_list.empty? 
+      unless self.templates_list.nil? 
         self.templates_list.each do |template|
           extracted_templates.push(Template.new(template))
         end
