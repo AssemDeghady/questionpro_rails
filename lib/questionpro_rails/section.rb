@@ -6,13 +6,15 @@ module QuestionproRails
 		attr_reader :id, :num_tasks, :exact_min_answers, :orientation, :code, 
                 :max_answers, :required, :has_page_break, :type, 
                 :dynamic_explode_text, :video, :video_type, :min_answers,
-                :random, :random_section, :subtype, :mobile_friendly
+                :random, :random_section, :subtype, :mobile_friendly,
+                :title, :right_anchor, :left_anchor
 
     # @return [Array<Hash>] Questions collected inside the section.
     attr_reader :qp_questions
 
 		def initialize(attributes)
       @id                   = attributes['sectionID']
+      @title								= attributes['title']
 			@num_tasks            = attributes['numTasks']
 			@exact_min_answers    = attributes['exactMinAnswers']
 			@orientation          = attributes['orientation']
@@ -29,7 +31,9 @@ module QuestionproRails
 			@random_section       = attributes['randomSection']
 			@subtype              = attributes['subtype']
 			@mobile_friendly      = attributes['mobileFriendly']	
-			@qp_questions         = attributes['questions']					
+			@qp_questions         = attributes['questions']	
+			@right_anchor					= attributes['rightAnchor']
+			@left_anchor				  = attributes['leftAnchor']			
 		end
 
     # Extract the Questions from the hashes stored
