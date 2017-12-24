@@ -5,7 +5,7 @@ module QuestionproRails
 
     attr_reader :id, :country, :duplicate, :external_reference, 
                 :ip_address, :region, :response_status,
-                :time_taken, :timestamp
+                :time_taken, :timestamp, :original_object
 
     # @return [Array<Hash>] Response Set collected from the survey response.
     attr_reader :qp_response_set
