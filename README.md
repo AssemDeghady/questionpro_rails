@@ -173,6 +173,17 @@ answers = response_set.answers
 | ------------------------------------------------------- | ----------------------------------------------------------------- |
 | [httparty](https://github.com/jnunemaker/httparty)      | used to make the call requests and extracting the response 			  |
 
+## Generate documentation:
+
+you must have [Yard](https://github.com/lsegal/yard) gem installed.
+
+```bash
+yardoc
+```
+
+Documentation will be generated in /docs
+
+
 ## Contributing
 
 1. Fork it.
