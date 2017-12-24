@@ -6,6 +6,8 @@ require "questionpro_rails/version"
 Gem::Specification.new do |spec|
   spec.name          = "questionpro_rails"
   spec.version       = QuestionproRails::VERSION
+  spec.required_ruby_version = '>= 2.4.2'
+  
   spec.authors       = ["Assem Deghady"]
   spec.email         = ["assem.deghady@gmail.com"]
 
