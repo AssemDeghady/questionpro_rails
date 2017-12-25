@@ -21,7 +21,7 @@ module QuestionproRails
       @response_status    = attributes['responseStatus']
       @time_taken         = attributes['timeTaken']
       @timestamp          = attributes['timestamp']
-      @original_object    = attributes      
+      @original_object    = attributes
     end
 
     # Extract the Response Set from the hash stored
