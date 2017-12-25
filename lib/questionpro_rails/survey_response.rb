@@ -3,7 +3,7 @@ require "questionpro_rails/response_set"
 module QuestionproRails
   class SurveyResponse
 
-    attr_acc :id, :country, :duplicate, :external_reference, 
+    attr_reader :id, :country, :duplicate, :external_reference, 
                 :ip_address, :region, :response_status,
                 :time_taken, :timestamp, :original_object
 
