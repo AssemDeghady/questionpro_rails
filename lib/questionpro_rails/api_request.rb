@@ -125,7 +125,6 @@ module QuestionproRails
       result_responses = result['response']['responses']
       result_responses.each do |response|
         new_response = SurveyResponse.new(response)
-        new_response.original_object = response
         survey_responses.push(SurveyResponse.new(new_response))
       end
       

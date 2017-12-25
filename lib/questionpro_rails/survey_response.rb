@@ -3,7 +3,7 @@ require "questionpro_rails/response_set"
 module QuestionproRails
   class SurveyResponse
 
-    attr_reader :id, :country, :duplicate, :external_reference, 
+    attr_acc :id, :country, :duplicate, :external_reference, 
                 :ip_address, :region, :response_status,
                 :time_taken, :timestamp, :original_object
 
@@ -20,7 +20,8 @@ module QuestionproRails
       @qp_response_set    = attributes['responseSet']
       @response_status    = attributes['responseStatus']
       @time_taken         = attributes['timeTaken']
-      @timestamp          = attributes['timestamp']      
+      @timestamp          = attributes['timestamp']
+      @original_object    = attributes      
     end
 
     # Extract the Response Set from the hash stored

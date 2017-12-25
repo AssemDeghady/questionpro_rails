@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    questionpro_rails (0.1.3)
+    questionpro_rails (0.1.5)
       httparty (~> 0.15.6)
 
 GEM
